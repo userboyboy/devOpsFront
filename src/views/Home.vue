@@ -7,11 +7,11 @@
       <div class="title">Apollo XxX 系统</div>
     </el-header>
     <el-container>
-      <el-aside width="200px">
-        <LeftNav></LeftNav>
-      </el-aside>
+      <LeftNav></LeftNav>
       <el-container>
-        <el-main>Main</el-main>
+        <el-main>
+          <router-view></router-view>
+        </el-main>
         <el-footer>Footer</el-footer>
       </el-container>
     </el-container>
