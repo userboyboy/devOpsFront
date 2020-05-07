@@ -4,7 +4,7 @@
       <div class="logo">
         <img src="http://www.ehousechina.com/resources/images/logo/logoHead.png" />
       </div>
-      <div class="title">Apollo XxX 系统</div>
+      <div class="title">XxX 系统</div>
     </el-header>
     <el-container>
       <LeftNav></LeftNav>
@@ -22,7 +22,7 @@
 import LeftNav from "@/components/LeftNav";
 
 export default {
-  name: "home",
+  name: "Home",
   components: {
     LeftNav
   }
@@ -33,6 +33,7 @@ export default {
 .el-container {
   height: 100%;
 }
+
 .el-header {
   background-color: antiquewhite;
   position: relative;
@@ -45,21 +46,24 @@ export default {
       transform: translateY(-50%);
     }
   }
+
   .title {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     margin-left: 180px;
-    // margin: 10px 0 0 15px;
     font-size: 30px;
   }
 }
+
 .el-aside {
-  background-color: #545c64;
+  background-color: #333744;
 }
+
 .el-main {
-  background-color: burlywood;
+  background-color: rgb(247, 246, 244);
 }
+
 .el-footer {
   background-color: crimson;
 }

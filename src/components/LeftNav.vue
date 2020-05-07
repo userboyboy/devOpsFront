@@ -1,52 +1,37 @@
 <template>
   <el-aside :width="isCollapse ? '64px' : '200px'">
     <div class="leftnav">
-      <!-- <div @click="toggleCollapse" class="toggleImg">
-        <img src="../assets/img/toggleCollapse.png" />
-      </div>-->
-      <div @click="toggleCollapse" class="toggleImg">
-        <el-switch v-model="switchVal" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
+      <div @click="toggleCollapse" class="toggleDiv">
+        <i class="el-icon-s-fold"></i>
       </div>
+
       <el-menu
-        default-active="2"
-        background-color="#545c64"
+        default-active="/dashbord"
+        background-color="#333744"
         text-color="#fff"
-        active-text-color="#ffd04b"
+        active-text-color="#409BFF"
         :collapse="isCollapse"
         :collapse-transition="false"
         :router="true"
+        :unique-opened="true"
       >
         <el-menu-item index="/dashbord">
-          <i class="el-icon-menu"></i>
+          <i class="el-icon-s-home"></i>
           <span slot="title">首页</span>
         </el-menu-item>
-        <el-menu-item index="/users">
-          <i class="el-icon-user-solid"></i>
-          <span slot="title">用户管理</span>
-        </el-menu-item>
-        <el-submenu index="1">
+        <el-submenu :index="item.id + ''" v-for="item in menulist" :key="item.id">
           <template slot="title">
-            <i class="el-icon-location"></i>
-            <span>导航一</span>
+            <i :class="iconsObj[item.id]"></i>
+            <span>{{item.authName}}</span>
           </template>
           <el-menu-item-group>
-            <template slot="title">分组一</template>
-            <el-menu-item index="1-1">选项1</el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
+            <el-menu-item
+              :index="subItem.path + ''"
+              v-for="subItem in item.children"
+              :key="subItem.id"
+            >{{subItem.authName}}</el-menu-item>
           </el-menu-item-group>
-          <el-menu-item-group title="分组2">
-            <el-menu-item index="1-3">选项3</el-menu-item>
-          </el-menu-item-group>
-          <el-submenu index="1-4">
-            <template slot="title">选项4</template>
-            <el-menu-item index="1-4-1">选项1</el-menu-item>
-          </el-submenu>
         </el-submenu>
-
-        <el-menu-item index="4">
-          <i class="el-icon-setting"></i>
-          <span slot="title">导航四</span>
-        </el-menu-item>
       </el-menu>
     </div>
   </el-aside>
@@ -55,15 +40,33 @@
 <script>
 export default {
   name: "LeftNav",
+  created() {
+    this.getMenuList();
+  },
   data() {
     return {
       isCollapse: false,
-      switchVal: true
+      switchVal: true,
+      menulist: [],
+      iconsObj: {
+        "125": "el-icon-user-solid",
+        "103": "el-icon-s-opportunity",
+        "101": "el-icon-s-cooperation",
+        "102": "el-icon-tickets",
+        "145": "el-icon-postcard"
+      }
     };
   },
   methods: {
     toggleCollapse() {
       this.isCollapse = !this.isCollapse;
+    },
+    async getMenuList() {
+      const { data: res } = await this.$http.get("/users/menus");
+      console.log(res);
+      
+      if (res.meta.status !== 200) return this.$message.error(res.mets.msg);
+      this.menulist = res.data;
     }
   }
 };
@@ -71,17 +74,13 @@ export default {
 
 <style lang="less" scoped>
 .leftnav {
-  .toggleImg {
-    display: flex;
-    .el-switch {
-      height: 35px;
-      margin: 0 auto;
+  .toggleDiv {
+    background-color: #606060;
+    .el-icon-s-fold {
+      margin-left: 43%;
     }
   }
-  position: relative;
-  .el-icon-s-fold {
-    margin-left: 45%;
-  }
+
   .el-menu {
     border-right: none;
   }

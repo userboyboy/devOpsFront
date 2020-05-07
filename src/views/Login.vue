@@ -42,11 +42,8 @@
 
 <script>
 export default {
-  name: "login",
+  name: "Login",
   methods: {
-    resetForm() {
-      this.$refs.LoginFormRef.resetFields();
-    },
     login() {
       this.$refs.LoginFormRef.validate(async val => {
         if (!val) return;
@@ -67,12 +64,26 @@ export default {
       },
       rules: {
         username: [
-          { required: true, message: "请输入用户名", trigger: "blur" },
-          { min: 3, max: 8, message: "长度在 3 到 5 个字符", trigger: "blur" }
+          {
+            required: true,
+            message: "请输入用户名",
+            trigger: "blur"
+          },
+          {
+            min: 3,
+            max: 8,
+            message: "长度在 3 到 5 个字符",
+            trigger: "blur"
+          }
         ],
         password: [
           { required: true, message: "请输入密码", trigger: "blur" },
-          { min: 3, max: 8, message: "长度在 3 到 5 个字符", trigger: "blur" }
+          {
+            min: 3,
+            max: 8,
+            message: "长度在 3 到 5 个字符",
+            trigger: "blur"
+          }
         ]
       }
     };
@@ -85,15 +96,14 @@ export default {
     display: inline-block;
     height: 47px;
     width: 85%;
+
     input {
       background: transparent;
       border: 0px;
       -webkit-appearance: none;
       border-radius: 0px;
       padding: 12px 5px 12px 15px;
-      // color: $light_graylight_gray;
       height: 47px;
-      // caret-color: $cursor;
     }
   }
 
@@ -121,7 +131,6 @@ export default {
     margin: 0 auto;
     overflow: hidden;
   }
-
   .tips {
     font-size: 14px;
     color: #fff;
@@ -136,7 +145,6 @@ export default {
 
   .svg-container {
     padding: 6px 5px 6px 15px;
-    // color: $dark_gray;
     vertical-align: middle;
     width: 30px;
     display: inline-block;
@@ -147,21 +155,10 @@ export default {
 
     .title {
       font-size: 26px;
-      // color: $light_gray;
       margin: 0px auto 40px auto;
       text-align: center;
       font-weight: bold;
     }
-  }
-
-  .show-pwd {
-    position: absolute;
-    right: 10px;
-    top: 7px;
-    font-size: 16px;
-    // color: $dark_gray;
-    cursor: pointer;
-    user-select: none;
   }
 }
 </style>
