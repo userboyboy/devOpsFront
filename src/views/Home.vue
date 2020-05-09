@@ -1,30 +1,35 @@
 <template>
   <el-container>
-    <el-header>
+    <!-- <el-header>
       <div class="logo">
         <img src="http://www.ehousechina.com/resources/images/logo/logoHead.png" />
       </div>
-      <div class="title">XxX 系统</div>
-    </el-header>
+      <div class="title"></div>
+    </el-header>-->
+    <LeftNav></LeftNav>
+
     <el-container>
-      <LeftNav></LeftNav>
-      <el-container>
-        <el-main>
-          <router-view></router-view>
-        </el-main>
-        <el-footer>Footer</el-footer>
-      </el-container>
+      <el-header>
+        <Header></Header>
+      </el-header>
+
+      <el-main>
+        <router-view></router-view>
+      </el-main>
+      <el-footer style="height:30px">Copyright 2020 by 易居企业集团 - 运维</el-footer>
     </el-container>
   </el-container>
 </template>
 
 <script>
 import LeftNav from "@/components/LeftNav";
+import Header from "@/components/Header";
 
 export default {
   name: "Home",
   components: {
-    LeftNav
+    LeftNav,
+    Header
   }
 };
 </script>
@@ -35,25 +40,8 @@ export default {
 }
 
 .el-header {
-  background-color: antiquewhite;
+  background-color: #fff;
   position: relative;
-
-  .logo {
-    > img {
-      height: 30px;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-  }
-
-  .title {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    margin-left: 180px;
-    font-size: 30px;
-  }
 }
 
 .el-aside {
@@ -65,6 +53,7 @@ export default {
 }
 
 .el-footer {
-  background-color: crimson;
+  text-align: center;
+  background-color: rgb(247, 246, 244);
 }
 </style>

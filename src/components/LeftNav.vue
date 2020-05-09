@@ -1,9 +1,9 @@
 <template>
-  <el-aside :width="isCollapse ? '64px' : '200px'">
+  <el-aside :width="isCollapse ? '64px' : '230px'">
     <div class="leftnav">
-      <div @click="toggleCollapse" class="toggleDiv">
+      <!-- <div @click="toggleCollapse" class="toggleDiv">
         <i class="el-icon-s-fold"></i>
-      </div>
+      </div> -->
 
       <el-menu
         default-active="/dashbord"
@@ -64,7 +64,7 @@ export default {
     async getMenuList() {
       const { data: res } = await this.$http.get("/users/menus");
       console.log(res);
-      
+
       if (res.meta.status !== 200) return this.$message.error(res.mets.msg);
       this.menulist = res.data;
     }
@@ -77,7 +77,7 @@ export default {
   .toggleDiv {
     background-color: #606060;
     .el-icon-s-fold {
-      margin-left: 43%;
+      margin-left: 45%;
     }
   }
 

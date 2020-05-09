@@ -47,7 +47,7 @@ export default {
     login() {
       this.$refs.LoginFormRef.validate(async val => {
         if (!val) return;
-        const { data: res } = await this.$http.post("login", this.loginForm);
+        const { data: res } = await this.$http.post("users/login", this.loginForm);
         if (res.meta.status !== 200)
           return this.$message.error("error 账户或者密码错误，请重试");
         else this.$message.success("success , 登录成功");
