@@ -10,7 +10,6 @@ export default {
   methods: {
     toggleCollapse() {
       this.isCollapse = !this.isCollapse;
-      console.log('toggleCollapse');
     },
   }
 };

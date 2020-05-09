@@ -20,10 +20,15 @@
         <el-table-column type="index"></el-table-column>
         <el-table-column prop="username" label="姓名" width="180"></el-table-column>
         <el-table-column prop="email" label="邮箱" width="180"></el-table-column>
-        <el-table-column prop="mobile" label="电话"></el-table-column>
-        <el-table-column prop="role_name" label="角色"></el-table-column>
-        <el-table-column label="状态">
-          <template slot-scope="scope">{{scope.row.mg_state}}</template>
+        <el-table-column prop="user_type" label="角色">
+          <template slot-scope="scope">
+            <el-tag v-if="scope.row.user_type === '0'">普通用户</el-tag>
+            <el-tag type="success" v-if="scope.row.user_type === '1'">管理页</el-tag>
+            <el-tag type="danger" v-if="scope.row.user_type === '2'">未知用户</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column label="创建时间">
+          <template slot-scope="scope">{{scope.row.createdAt}}</template>
         </el-table-column>
         <el-table-column label="操作" width="180px">
           <template slot-scope="scope">
@@ -168,11 +173,13 @@ export default {
   },
   methods: {
     async getUserList() {
-      const { data: res } = await this.$http.get("users", {
+      const { data: res } = await this.$http.post("users/list", {
         params: this.queryInfo
       });
-      this.userList = res.data.users;
-      this.total = res.data.total;
+
+      this.userList = res.data.users.rows;
+
+      this.total = res.data.users.count;
       if (res.meta.status !== 200) return this.$messages.error("获取数据失败");
     },
     handleSizeChange(newSize) {
@@ -218,7 +225,6 @@ export default {
     },
     // 根据ID删除用户
     async removeUserByID(id) {
-      console.log(id);
       const confirmResult = await this.$confirm(
         "此操作将永久删除该用户, 是否继续?",
         "提示",
