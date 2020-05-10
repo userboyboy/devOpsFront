@@ -1,11 +1,6 @@
 <template>
   <el-container>
-    <!-- <el-header>
-      <div class="logo">
-        <img src="http://www.ehousechina.com/resources/images/logo/logoHead.png" />
-      </div>
-      <div class="title"></div>
-    </el-header>-->
+
     <LeftNav></LeftNav>
 
     <el-container>
@@ -16,7 +11,7 @@
       <el-main>
         <router-view></router-view>
       </el-main>
-      <el-footer style="height:30px">Copyright 2020 by 易居企业集团 - 运维</el-footer>
+      <el-footer style="height:30px">Copyright 2020 by 易居企业集团 - 运维出品</el-footer>
     </el-container>
   </el-container>
 </template>

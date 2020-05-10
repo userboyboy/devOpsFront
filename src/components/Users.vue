@@ -24,7 +24,7 @@
           <template slot-scope="scope">
             <el-tag v-if="scope.row.user_type === '0'">普通用户</el-tag>
             <el-tag type="success" v-if="scope.row.user_type === '1'">管理页</el-tag>
-            <el-tag type="danger" v-if="scope.row.user_type === '2'">未知用户</el-tag>
+            <el-tag type="danger" v-if="scope.row.user_type === '2'">未定义角色</el-tag>
           </template>
         </el-table-column>
         <el-table-column label="创建时间">
@@ -49,9 +49,9 @@
                 @click="removeUserByID(scope.row.id)"
               ></el-button>
             </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="分配角色" placement="top">
+            <!-- <el-tooltip class="item" effect="dark" content="分配角色" placement="top">
               <el-button type="warning" icon="el-icon-setting" size="mini"></el-button>
-            </el-tooltip>
+            </el-tooltip>-->
           </template>
         </el-table-column>
       </el-table>
@@ -62,7 +62,7 @@
         @current-change="handleCurrentChange"
         :current-page="queryInfo.pagenum"
         F
-        :page-sizes="[1, 2, 5, 10]"
+        :page-sizes="[5, 10, 15, 50]"
         :page-size="queryInfo.pagesize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="total"
@@ -81,8 +81,8 @@
         <el-form-item label="邮箱" prop="email">
           <el-input v-model="AddForm.email"></el-input>
         </el-form-item>
-        <el-form-item label="手机" prop="mobile">
-          <el-input v-model="AddForm.mobile"></el-input>
+        <el-form-item label="角色" prop="user_type">
+          <el-input v-model="AddForm.user_type"></el-input>普通用户为0，管理员为1
         </el-form-item>
       </el-form>
       <span slot="footer">
@@ -92,7 +92,7 @@
     </el-dialog>
 
     <!-- 修改用户对话框 -->
-    <el-dialog title="添加用户" :visible.sync="EditDialogVisible" width="50%">
+    <el-dialog title="修改用户" :visible.sync="EditDialogVisible" width="50%">
       <el-form :model="EditForm" :rules="FormRules" ref="EditFormRef" label-width="70px">
         <el-form-item label="用户名" prop="username">
           <el-input v-model="EditForm.username" disabled></el-input>
@@ -100,12 +100,12 @@
         <el-form-item label="邮箱" prop="email">
           <el-input v-model="EditForm.email"></el-input>
         </el-form-item>
-        <el-form-item label="手机" prop="mobile">
-          <el-input v-model="EditForm.mobile"></el-input>
+        <el-form-item label="密码" prop="password">
+          <el-input type="password" v-model="EditForm.password"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer">
-        <el-button @click="AddDialogVisible = false">取 消</el-button>
+        <el-button @click="EditDialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="EditUserInfo">确 定</el-button>
       </span>
     </el-dialog>
@@ -126,13 +126,13 @@ export default {
         // 当前页数
         pagenum: 1,
         // 当前显示多少条数据
-        pagesize: 10
+        pagesize: 5
       },
       AddForm: {
         username: "",
         password: "",
         email: "",
-        mobile: ""
+        user_type: ""
       },
       EditForm: {
         username: "",
@@ -176,9 +176,8 @@ export default {
       const { data: res } = await this.$http.post("users/list", {
         params: this.queryInfo
       });
-
+      
       this.userList = res.data.users.rows;
-
       this.total = res.data.users.count;
       if (res.meta.status !== 200) return this.$messages.error("获取数据失败");
     },
@@ -194,7 +193,7 @@ export default {
       this.$refs.AddFormRef.validate(async valid => {
         if (!valid) return;
         // 发起添加用户的请求
-        const { data: res } = await this.$http.post("users", this.AddForm);
+        const { data: res } = await this.$http.post("users/add", this.AddForm);
         if (res.meta.status !== 201) {
           return this.$message.error(res.meta.msg);
         }
@@ -240,7 +239,7 @@ export default {
       if (confirmResult !== "confirm") {
         return this.$message.info("已取消");
       }
-      const { data: res } = await this.$http.delete("users/" + id);
+      const { data: res } = await this.$http.delete("users/delete/" + id);
       if (res.meta.status !== 200) {
         this.$message.error("删除失败");
       }
