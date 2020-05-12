@@ -1,6 +1,5 @@
 <template>
   <el-container>
-
     <LeftNav></LeftNav>
 
     <el-container>
