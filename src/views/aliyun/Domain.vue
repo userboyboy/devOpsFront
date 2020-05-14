@@ -41,6 +41,8 @@ export default {
   methods: {
     async getDomainList() {
       const res = await this.$http.get("aliyun/domain");
+      console.log(res);
+      
       this.tableData = res.data.Domains.Domain
     },
     handleEdit(index, row) {
