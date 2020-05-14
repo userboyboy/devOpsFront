@@ -24,7 +24,7 @@
           <template slot-scope="scope">
             <el-tag v-if="scope.row.user_type === '0'">普通用户</el-tag>
             <el-tag type="success" v-if="scope.row.user_type === '1'">管理页</el-tag>
-            <el-tag type="danger" v-if="scope.row.user_type === '2'">未定义角色</el-tag>
+            <el-tag type="danger" v-if="scope.row.user_type === '2'">其他</el-tag>
           </template>
         </el-table-column>
         <el-table-column label="创建时间">
@@ -49,9 +49,6 @@
                 @click="removeUserByID(scope.row.id)"
               ></el-button>
             </el-tooltip>
-            <!-- <el-tooltip class="item" effect="dark" content="分配角色" placement="top">
-              <el-button type="warning" icon="el-icon-setting" size="mini"></el-button>
-            </el-tooltip>-->
           </template>
         </el-table-column>
       </el-table>
@@ -176,7 +173,7 @@ export default {
       const { data: res } = await this.$http.post("users/list", {
         params: this.queryInfo
       });
-      
+
       this.userList = res.data.users.rows;
       this.total = res.data.users.count;
       if (res.meta.status !== 200) return this.$messages.error("获取数据失败");

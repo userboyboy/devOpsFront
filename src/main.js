@@ -17,6 +17,10 @@ axios.interceptors.request.use(config => {
 })
 Vue.prototype.$http = axios
 
+// echarts
+import echarts from 'echarts'
+Vue.prototype.$echarts = echarts
+
 Vue.use(ElementUI);
 
 Vue.config.productionTip = false

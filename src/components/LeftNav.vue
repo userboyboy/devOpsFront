@@ -1,9 +1,7 @@
 <template>
   <el-aside :width="isCollapse ? '64px' : '230px'">
     <div class="leftnav">
-      <!-- <div @click="toggleCollapse" class="toggleDiv">
-        <i class="el-icon-s-fold"></i>
-      </div>-->
+      <div class="logo"></div>
 
       <el-menu
         default-active="/dashbord"
@@ -72,11 +70,9 @@ export default {
 
 <style lang="less" scoped>
 .leftnav {
-  .toggleDiv {
+  .logo {
     background-color: #606060;
-    .el-icon-s-fold {
-      margin-left: 45%;
-    }
+    height: 60px;
   }
 
   .el-menu {

@@ -4,9 +4,7 @@ import Login from '@/views/Login.vue'
 import Home from '@/views/Home.vue'
 import DashBoard from '@/components/DashBoard.vue'
 import Users from '@/views/Users.vue'
-
-import Roles from '@/views/roles/Roles.vue'
-import Edit from '@/views/roles/edit.vue'
+import Domain from '@/views/aliyun/Domain.vue'
 
 
 Vue.use(VueRouter)
@@ -26,40 +24,9 @@ const routes = [
         component: Users
       },
       {
-        name: 'Roles',
-        path: '/roles',
-        component: () => import('@/views/nested/menu1/index'), // Parent router-view
-        meta: { title: 'Roles' },
-        children: [
-          {
-            path: 'edit',
-            component: () => import('@/views/nested/menu1/menu1-1'),
-            name: 'Edit',
-            meta: { title: 'edit' }
-          },
-          {
-            path: 'menu1-2',
-            component: () => import('@/views/nested/menu1/menu1-2'),
-            name: 'Menu1-2',
-            meta: { title: 'Menu1-2' },
-            children: [
-              {
-                path: 'menu1-2-1',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                name: 'Menu1-2-1',
-                meta: { title: 'Menu1-2-1' }
-              },
-              {
-                path: 'menu1-2-2',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                name: 'Menu1-2-2',
-                meta: { title: 'Menu1-2-2' }
-              }
-            ]
-          },
-        ]
-      }
-
+        name: 'Domain', path: '/domain',
+        component: Domain
+      },
     ]
   },
   {
