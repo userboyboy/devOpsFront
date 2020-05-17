@@ -5,6 +5,7 @@ import Home from '@/views/Home.vue'
 import DashBoard from '@/components/DashBoard.vue'
 import Users from '@/views/Users.vue'
 import Domain from '@/views/aliyun/Domain.vue'
+import Dns from '@/views/aliyun/Dns.vue'
 
 
 Vue.use(VueRouter)
@@ -26,6 +27,9 @@ const routes = [
       {
         name: 'Domain', path: '/domain',
         component: Domain,
+      }, {
+        name: 'Dns', path: '/dns',
+        component: Dns,
       },
     ]
   },

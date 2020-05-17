@@ -23,10 +23,15 @@
       <!-- 表格 -->
       <el-table :data="domainList" border stripe>
         <el-table-column type="index"></el-table-column>
-        <el-table-column prop="DomainName" label="域名名称" width="180"></el-table-column>
-        <el-table-column prop="RecordCount" label="解析数量" width="180"></el-table-column>
-        <el-table-column prop="CreateTime" label="创建时间" width="180"></el-table-column>
-        <el-table-column prop="VersionCode" label="版本" width="180"></el-table-column>
+        <el-table-column prop="DomainName" label="域名名称"></el-table-column>
+        <el-table-column prop="RecordCount" label="解析数量"></el-table-column>
+        <el-table-column prop="CreateTime" label="创建时间"></el-table-column>
+        <el-table-column prop="VersionCode" label="版本">
+          <template slot-scope="scope">
+            <el-tag v-if="scope.row.VersionCode == 'mianfei'">免费版</el-tag>
+            <el-tag type="success" v-else>非免费版</el-tag>
+          </template>
+        </el-table-column>
         <el-table-column label="操作" width="180px">
           <template slot-scope="scope">
             <el-tooltip class="item" effect="dark" content="编辑" placement="top">
@@ -171,11 +176,9 @@ export default {
         params: this.queryInfo
       });
       console.log(res);
-
       this.domainList = res.Domains.Domain;
       this.total = res.TotalCount;
-      if (res.Domains.Domain.length == 0)
-        return this.$messages.error("获取数据失败");
+      if (res.Domains.Domain == []) return;
     },
     handleSizeChange(newSize) {
       this.queryInfo.PageSize = newSize;
