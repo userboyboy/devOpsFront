@@ -208,10 +208,10 @@ export default {
       this.$refs.EditFormRef.validate(async val => {
         if (!val) return;
         const { data: res } = await this.$http.put(
-          "users/" + this.EditForm.id,
-          { email: this.EditForm.email, mobile: this.EditForm.mobile }
+          "users/edit/" + this.EditForm.id,
+          { email: this.EditForm.email, password: this.EditForm.password }
         );
-        if (res.meta.status !== 200) {
+        if (res.meta.status !== 201) {
           this.$message.error(res.meta.msg);
         }
         this.EditDialogVisible = false;
@@ -237,7 +237,7 @@ export default {
         return this.$message.info("已取消");
       }
       const { data: res } = await this.$http.delete("users/delete/" + id);
-      if (res.meta.status !== 200) {
+      if (res.meta.status !== 201) {
         this.$message.error("删除失败");
       }
       this.$message.success("删除成功");
