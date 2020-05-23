@@ -1,7 +1,7 @@
 import axios from 'axios'
 const service = axios.create({
     timeout: 5000, // request timeout 请求后端接口，五秒内没有返回前端直接返回超时
-    baseURL: 'http://localhost:3000/api/'
+    baseURL: 'http://0.0.0.0:3000/api/'
 })
 service.interceptors.request.use(
     config => {
